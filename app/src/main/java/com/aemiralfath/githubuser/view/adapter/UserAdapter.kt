@@ -49,7 +49,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
             binding.tvItemUsername.text = username
             binding.tvItemCompany.text = user.company
 
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 onItemClickCallback.onItemClicked(user)
             }
         }

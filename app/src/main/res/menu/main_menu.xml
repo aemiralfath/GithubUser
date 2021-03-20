@@ -6,5 +6,5 @@
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/profile"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 </menu>

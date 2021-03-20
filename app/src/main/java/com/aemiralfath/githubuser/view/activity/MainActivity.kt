@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         binding.svUser.isIconified = false
         binding.svUser.clearFocus()
 
-        binding.svUser.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
+        binding.svUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvUser.layoutManager = LinearLayoutManager(this)
         binding.rvUser.adapter = adapter
 
-        adapter.setOnItemClickCallback(object: UserAdapter.OnItemClickCallback {
+        adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: User) {
                 val intent = Intent(this@MainActivity, DetailUserActivity::class.java)
                 intent.putExtra(DetailUserActivity.EXTRA_USER, data)

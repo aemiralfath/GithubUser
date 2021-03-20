@@ -22,11 +22,11 @@ import org.jetbrains.anko.design.snackbar
 
 class DetailUserActivity : AppCompatActivity() {
 
-    private var isFavorite: Boolean = false
-
     private lateinit var user: User
     private lateinit var menuItem: Menu
     private lateinit var binding: ActivityDetailUserBinding
+
+    private var isFavorite: Boolean = false
 
     companion object {
         const val EXTRA_USER = "extra_user"

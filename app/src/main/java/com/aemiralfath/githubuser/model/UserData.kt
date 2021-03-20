@@ -18,6 +18,7 @@ object UserData {
         following: Array<String>,
         avatar: TypedArray
     ) {
+        listData.clear()
         for (position in username.indices) {
             listData.add(
                 User(

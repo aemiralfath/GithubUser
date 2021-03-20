@@ -7,7 +7,7 @@ data class FavoriteUser(
     val company: String?,
     val avatar: Int?,
 ) {
-    companion object{
+    companion object {
         const val TABLE_FAVORITE: String = "TABLE_FAVORITE_USER"
         const val ID: String = "ID_"
         const val USERNAME: String = "USERNAME"
