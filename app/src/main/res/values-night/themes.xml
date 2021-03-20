@@ -3,11 +3,11 @@
     <style name="Theme.GithubUser" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="Q">false</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/orange_700</item>
-        <item name="colorPrimaryVariant">@color/orange_500</item>
+        <item name="colorPrimary">@color/black_700</item>
+        <item name="colorPrimaryVariant">@color/black_500</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/orange_200</item>
+        <item name="colorSecondary">@color/black_200</item>
         <item name="colorSecondaryVariant">@color/skin_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
