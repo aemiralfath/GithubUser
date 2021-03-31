@@ -27,6 +27,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var adapter: UserAdapter
 
+    private var onSearch = false
+
+    companion object{
+        private const val STATE_SEARCH = "state_search"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -36,13 +42,16 @@ class MainActivity : AppCompatActivity() {
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
 
+        binding.rvUser.setHasFixedSize(true)
+        binding.rvUser.layoutManager = LinearLayoutManager(this)
+        binding.rvUser.adapter = adapter
+
         mainViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
         ).get(MainViewModel::class.java)
 
         mainViewModel.getDataUser().observe(this, getUser)
-        mainViewModel.setUser()
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         binding.svUser.setSearchableInfo(searchManager.getSearchableInfo(componentName))
@@ -54,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.svUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                onSearch = true
                 return if (query.isNullOrBlank()) {
                     false
                 } else {
@@ -64,6 +74,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 return if (newText.isNullOrBlank()) {
+                    onSearch = false
                     mainViewModel.setUser()
                     true
                 } else {
@@ -73,13 +84,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.svUser.setOnCloseListener {
+            onSearch = true
             mainViewModel.setUser()
             true
         }
-
-        binding.rvUser.setHasFixedSize(true)
-        binding.rvUser.layoutManager = LinearLayoutManager(this)
-        binding.rvUser.adapter = adapter
 
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: UsersItem?) {
@@ -90,6 +98,15 @@ class MainActivity : AppCompatActivity() {
         })
 
         showLoading(true)
+
+        if (savedInstanceState != null){
+            onSearch = savedInstanceState.getBoolean(STATE_SEARCH)
+            if (!onSearch) {
+                mainViewModel.setUser()
+            }
+        }else{
+            mainViewModel.setUser()
+        }
     }
 
     private val getUser: Observer<UsersResponse> =
@@ -124,5 +141,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(STATE_SEARCH, onSearch)
+        super.onSaveInstanceState(outState)
     }
 }
