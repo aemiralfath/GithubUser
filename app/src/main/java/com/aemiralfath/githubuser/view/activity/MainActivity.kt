@@ -1,24 +1,30 @@
 package com.aemiralfath.githubuser.view.activity
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityMainBinding
-import com.aemiralfath.githubuser.model.UserData
-import com.aemiralfath.githubuser.model.entity.User
+import com.aemiralfath.githubuser.model.entity.UsersItem
+import com.aemiralfath.githubuser.model.entity.UsersResponse
 import com.aemiralfath.githubuser.view.adapter.UserAdapter
 import com.aemiralfath.githubuser.viewmodel.MainViewModel
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private val title = "Github User"
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
     private lateinit var adapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,42 +35,45 @@ class MainActivity : AppCompatActivity() {
 
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
-        prepare()
 
-        val mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(MainViewModel::class.java)
+
+        mainViewModel.getDataUser().observe(this, getUser)
         mainViewModel.setUser()
-        mainViewModel.getDataUser().observe(this, {
-            adapter.listUsers = it
-        })
 
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        binding.svUser.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         binding.svUser.isActivated = true
-        binding.svUser.queryHint = "Search User"
+        binding.svUser.queryHint = "Search Username"
         binding.svUser.onActionViewExpanded()
         binding.svUser.isIconified = false
         binding.svUser.clearFocus()
 
-        binding.svUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            android.widget.SearchView.OnQueryTextListener {
+        binding.svUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                return if (query.isNullOrBlank()) {
+                    false
+                } else {
+                    mainViewModel.searchUser(query)
+                    true
+                }
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                mainViewModel.setUser(newText)
-                mainViewModel.getDataUser().observe(this@MainActivity, {
-                    adapter.listUsers = it
-                    adapter.notifyDataSetChanged()
-                })
-                return true
+                return if (newText.isNullOrBlank()) {
+                    mainViewModel.setUser()
+                    true
+                } else {
+                    false
+                }
             }
         })
 
         binding.svUser.setOnCloseListener {
             mainViewModel.setUser()
-            mainViewModel.getDataUser().observe(this@MainActivity, {
-                adapter.listUsers = it
-                adapter.notifyDataSetChanged()
-            })
             true
         }
 
@@ -73,13 +82,21 @@ class MainActivity : AppCompatActivity() {
         binding.rvUser.adapter = adapter
 
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: User) {
+            override fun onItemClicked(data: UsersItem?) {
                 val intent = Intent(this@MainActivity, DetailUserActivity::class.java)
                 intent.putExtra(DetailUserActivity.EXTRA_USER, data)
                 startActivity(intent)
             }
         })
+
+        showLoading(true)
     }
+
+    private val getUser: Observer<UsersResponse> =
+        Observer<UsersResponse> {
+            adapter.listUsers = it
+            showLoading(false)
+        }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -100,27 +117,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun prepare() {
-        val dataUsername = resources.getStringArray(R.array.username)
-        val dataName = resources.getStringArray(R.array.name)
-        val dataLocation = resources.getStringArray(R.array.location)
-        val dataCompany = resources.getStringArray(R.array.company)
-        val dataRepository = resources.getStringArray(R.array.repository)
-        val dataFollowers = resources.getStringArray(R.array.followers)
-        val dataFollowing = resources.getStringArray(R.array.following)
-        val dataAvatar = resources.obtainTypedArray(R.array.avatar)
-
-        UserData.setData(
-            dataUsername,
-            dataName,
-            dataLocation,
-            dataCompany,
-            dataRepository,
-            dataFollowers,
-            dataFollowing,
-            dataAvatar
-        )
-
-        dataAvatar.recycle()
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

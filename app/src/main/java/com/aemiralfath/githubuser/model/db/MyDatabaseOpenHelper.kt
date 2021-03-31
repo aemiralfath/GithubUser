@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import org.jetbrains.anko.db.*
 
 class MyDatabaseOpenHelper(context: Context) :
-    ManagedSQLiteOpenHelper(context, "FavoriteUser.db", null, 1) {
+    ManagedSQLiteOpenHelper(context, "FavoriteUserGithub.db", null, 1) {
 
     companion object {
         private var instance: MyDatabaseOpenHelper? = null
@@ -22,11 +22,9 @@ class MyDatabaseOpenHelper(context: Context) :
     override fun onCreate(p0: SQLiteDatabase?) {
         p0?.createTable(
             FavoriteUser.TABLE_FAVORITE, true,
-            FavoriteUser.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
-            FavoriteUser.USERNAME to TEXT + UNIQUE,
-            FavoriteUser.USER_NAME to TEXT,
-            FavoriteUser.USER_COMPANY to TEXT,
-            FavoriteUser.USER_AVATAR to INTEGER
+            FavoriteUser.USERNAME to TEXT + PRIMARY_KEY,
+            FavoriteUser.USER_LINK to TEXT,
+            FavoriteUser.USER_AVATAR to TEXT
         )
     }
 

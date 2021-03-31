@@ -22,6 +22,7 @@
     <string name="favorite_user">Favorite User</string>
     <string name="no_data_available">No Data Available</string>
     <string name="splashscreen_image">Splashscreen Image</string>
+    <string name="github_page">Github page</string>
 
     <string-array name="username">
         <item>JakeWharton</item>

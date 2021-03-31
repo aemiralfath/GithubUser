@@ -12,7 +12,8 @@ import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityAboutBinding
 import com.aemiralfath.githubuser.model.db.FavoriteUser
 import com.aemiralfath.githubuser.model.db.database
-import com.aemiralfath.githubuser.model.entity.User
+import com.aemiralfath.githubuser.model.entity.UsersItem
+import com.aemiralfath.githubuser.model.entity.UsersResponse
 import com.aemiralfath.githubuser.view.adapter.UserAdapter
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
@@ -94,26 +95,25 @@ class AboutActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerList() {
-        val listData: ArrayList<User> = arrayListOf()
+        val listData: ArrayList<UsersItem> = arrayListOf()
         favoriteUser.forEach {
             listData.add(
-                User(
-                    username = it.username,
-                    name = it.name,
-                    company = it.company,
-                    avatar = it.avatar,
+                UsersItem(
+                    login = it.username,
+                    htmlUrl = it.link,
+                    avatarUrl = it.avatar
                 )
             )
         }
 
-        adapter.listUsers = listData
+        adapter.listUsers = UsersResponse(listData.size, false, listData)
         adapter.notifyDataSetChanged()
         binding.rvUsersAbout.setHasFixedSize(true)
         binding.rvUsersAbout.layoutManager = LinearLayoutManager(this)
         binding.rvUsersAbout.adapter = adapter
 
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: User) {
+            override fun onItemClicked(data: UsersItem?) {
                 val intent = Intent(this@AboutActivity, DetailUserActivity::class.java)
                 intent.putExtra(DetailUserActivity.EXTRA_USER, data)
                 startActivity(intent)

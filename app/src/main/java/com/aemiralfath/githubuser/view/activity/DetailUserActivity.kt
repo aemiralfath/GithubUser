@@ -3,16 +3,21 @@ package com.aemiralfath.githubuser.view.activity
 import android.content.Intent
 import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityDetailUserBinding
-import com.aemiralfath.githubuser.model.UserData.getDataUsername
 import com.aemiralfath.githubuser.model.db.FavoriteUser
 import com.aemiralfath.githubuser.model.db.database
-import com.aemiralfath.githubuser.model.entity.User
+import com.aemiralfath.githubuser.model.entity.DetailUserResponse
+import com.aemiralfath.githubuser.model.entity.UsersItem
+import com.aemiralfath.githubuser.viewmodel.DetailUserViewModel
 import com.bumptech.glide.Glide
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
@@ -22,9 +27,11 @@ import org.jetbrains.anko.design.snackbar
 
 class DetailUserActivity : AppCompatActivity() {
 
-    private lateinit var user: User
+    private lateinit var username: String
     private lateinit var menuItem: Menu
+    private lateinit var detailUserViewModel: DetailUserViewModel
     private lateinit var binding: ActivityDetailUserBinding
+    private lateinit var detailUsersResponse: DetailUserResponse
 
     private var isFavorite: Boolean = false
 
@@ -37,23 +44,40 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userExtra = intent.getParcelableExtra<User>(EXTRA_USER) as User
-        user = userExtra.username?.let { getDataUsername(it) }!!
+        val userExtra = intent.getParcelableExtra<UsersItem>(EXTRA_USER) as UsersItem
+        username = userExtra.login.toString()
 
-        supportActionBar?.title = user.username
+        supportActionBar?.title = username
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val username = "@${user.username}"
+        detailUserViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(DetailUserViewModel::class.java)
 
-        Glide.with(this).load(user.avatar).into(binding.imgUserAvatar)
-        binding.tvUserName.text = user.name
-        binding.tvUserUsername.text = username
-        binding.tvUserCompany.text = user.company
-        binding.tvUserLocation.text = user.location
-        binding.tvUserRepositories.text = user.repository
-        binding.tvUserFollowers.text = user.follower
-        binding.tvUserFollowing.text = user.following
+        detailUserViewModel.getDataUser().observe(this, getUser)
+        detailUserViewModel.setUser(username)
+
+        showLoading(true)
+
     }
+
+    private val getUser: Observer<DetailUserResponse> =
+        Observer<DetailUserResponse> {
+            val usernameText = "@${username}"
+
+            Glide.with(this).load(it.avatarUrl).into(binding.imgUserAvatar)
+            binding.tvUserName.text = it.name
+            binding.tvUserUsername.text = usernameText
+            binding.tvUserCompany.text = it.company
+            binding.tvUserLocation.text = it.location
+            binding.tvUserRepositories.text = it.publicRepos.toString()
+            binding.tvUserFollowers.text = it.followers.toString()
+            binding.tvUserFollowing.text = it.following.toString()
+
+            detailUsersResponse = it
+            showLoading(false)
+        }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_user_menu, menu)
@@ -74,7 +98,7 @@ class DetailUserActivity : AppCompatActivity() {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing User")
-                intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/${user.username}")
+                intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/${username}")
                 startActivity(Intent.createChooser(intent, "Share User"))
                 return true
             }
@@ -92,9 +116,10 @@ class DetailUserActivity : AppCompatActivity() {
             val result = select(FavoriteUser.TABLE_FAVORITE)
                 .whereArgs(
                     "(USERNAME = {username})",
-                    "username" to user.username!!
+                    "username" to username
                 )
             val favorite = result.parseList(classParser<FavoriteUser>())
+            Log.d("Favorite", favorite.toString())
             isFavorite = favorite.isNotEmpty()
         }
     }
@@ -115,10 +140,9 @@ class DetailUserActivity : AppCompatActivity() {
             database.use {
                 insert(
                     FavoriteUser.TABLE_FAVORITE,
-                    FavoriteUser.USERNAME to user.username,
-                    FavoriteUser.USER_NAME to user.name,
-                    FavoriteUser.USER_COMPANY to user.company,
-                    FavoriteUser.USER_AVATAR to user.avatar
+                    FavoriteUser.USERNAME to detailUsersResponse.login,
+                    FavoriteUser.USER_LINK to detailUsersResponse.htmlUrl,
+                    FavoriteUser.USER_AVATAR to detailUsersResponse.avatarUrl
                 )
             }
             binding.root.snackbar(getString(R.string.add_to_favorite))
@@ -133,12 +157,20 @@ class DetailUserActivity : AppCompatActivity() {
                 delete(
                     FavoriteUser.TABLE_FAVORITE,
                     "(USERNAME = {username})",
-                    "username" to user.username!!
+                    "username" to username
                 )
             }
             binding.root.snackbar(getString(R.string.remove_from_favorite))
         } catch (e: SQLiteConstraintException) {
             binding.root.snackbar(e.localizedMessage!!)
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

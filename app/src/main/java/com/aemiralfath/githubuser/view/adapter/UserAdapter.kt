@@ -6,19 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ItemRowUserBinding
-import com.aemiralfath.githubuser.model.entity.User
+import com.aemiralfath.githubuser.model.entity.UsersItem
+import com.aemiralfath.githubuser.model.entity.UsersResponse
 import com.bumptech.glide.Glide
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
-    var listUsers = ArrayList<User>()
+    var listUsers = UsersResponse()
         set(listUsers) {
-            if (listUsers.size > 0) {
-                this.listUsers.clear()
-            }
-            this.listUsers.addAll(listUsers)
+            field = listUsers
             notifyDataSetChanged()
         }
 
@@ -33,21 +31,20 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.bind(listUsers[position])
+        holder.bind(listUsers.items?.get(position) ?: UsersItem())
     }
 
-    override fun getItemCount(): Int = listUsers.size
+    override fun getItemCount(): Int = listUsers.items?.size ?: 0
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemRowUserBinding.bind(itemView)
 
-        fun bind(user: User) {
-            val username = "@${user.username}"
+        fun bind(user: UsersItem?) {
+            val username = "@${user?.login}"
 
-            Glide.with(itemView.context).load(user.avatar).into(binding.imgItemAvatar)
-            binding.tvItemName.text = user.name
-            binding.tvItemUsername.text = username
-            binding.tvItemCompany.text = user.company
+            Glide.with(itemView.context).load(user?.avatarUrl).into(binding.imgItemAvatar)
+            binding.tvItemName.text = username
+            binding.tvItemPage.text = user?.htmlUrl
 
             itemView.setOnClickListener {
                 onItemClickCallback.onItemClicked(user)
@@ -56,7 +53,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: User)
+        fun onItemClicked(data: UsersItem?)
     }
 
 }
