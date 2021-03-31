@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private var onSearch = false
 
-    companion object{
+    companion object {
         private const val STATE_SEARCH = "state_search"
     }
 
@@ -99,12 +99,12 @@ class MainActivity : AppCompatActivity() {
 
         showLoading(true)
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             onSearch = savedInstanceState.getBoolean(STATE_SEARCH)
             if (!onSearch) {
                 mainViewModel.setUser()
             }
-        }else{
+        } else {
             mainViewModel.setUser()
         }
     }
