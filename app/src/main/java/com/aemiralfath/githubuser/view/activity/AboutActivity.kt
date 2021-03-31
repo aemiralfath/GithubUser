@@ -2,11 +2,11 @@ package com.aemiralfath.githubuser.view.activity
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityAboutBinding

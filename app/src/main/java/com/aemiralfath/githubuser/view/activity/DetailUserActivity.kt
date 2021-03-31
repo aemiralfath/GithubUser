@@ -2,10 +2,10 @@ package com.aemiralfath.githubuser.view.activity
 
 import android.content.Intent
 import android.database.sqlite.SQLiteConstraintException
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityDetailUserBinding

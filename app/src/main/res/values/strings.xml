@@ -2,8 +2,6 @@
     <string name="app_name">Github User</string>
     <string name="user_name">User Name</string>
     <string name="username">Username</string>
-    <string name="company">Company:</string>
-    <string name="location">Location:</string>
     <string name="company_name">Company Name</string>
     <string name="image_item">Image Item</string>
     <string name="profile">Profile</string>

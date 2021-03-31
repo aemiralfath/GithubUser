@@ -1,17 +1,17 @@
 package com.aemiralfath.githubuser.view.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityMainBinding
-import com.aemiralfath.githubuser.model.entity.User
 import com.aemiralfath.githubuser.model.UserData
+import com.aemiralfath.githubuser.model.entity.User
 import com.aemiralfath.githubuser.view.adapter.UserAdapter
 import com.aemiralfath.githubuser.viewmodel.MainViewModel
 

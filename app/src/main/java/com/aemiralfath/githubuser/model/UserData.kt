@@ -3,7 +3,6 @@ package com.aemiralfath.githubuser.model
 import android.content.res.TypedArray
 import com.aemiralfath.githubuser.model.entity.User
 import java.util.*
-import kotlin.collections.ArrayList
 
 object UserData {
     private val listData: ArrayList<User> = arrayListOf()

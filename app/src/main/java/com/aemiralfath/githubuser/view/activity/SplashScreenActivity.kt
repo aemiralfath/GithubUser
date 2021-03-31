@@ -1,10 +1,10 @@
 package com.aemiralfath.githubuser.view.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import com.aemiralfath.githubuser.R
 
 class SplashScreenActivity : AppCompatActivity() {
