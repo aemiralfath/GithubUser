@@ -67,10 +67,10 @@ class DetailUserActivity : AppCompatActivity() {
             val usernameText = "@${username}"
 
             Glide.with(this).load(it.avatarUrl).into(binding.imgUserAvatar)
-            binding.tvUserName.text = it.name
             binding.tvUserUsername.text = usernameText
-            binding.tvUserCompany.text = it.company
-            binding.tvUserLocation.text = it.location
+            binding.tvUserName.text = if (it.name.isNullOrEmpty()) "Not Set" else it.name
+            binding.tvUserCompany.text = if (it.company.isNullOrEmpty()) "Not Set" else it.company
+            binding.tvUserLocation.text = if (it.location.isNullOrEmpty()) "Not Set" else it.location
             binding.tvUserRepositories.text = it.publicRepos.toString()
             binding.tvUserFollowers.text = it.followers.toString()
             binding.tvUserFollowing.text = it.following.toString()

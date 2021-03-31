@@ -12,7 +12,7 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
-    private val token = "b9303a8f853aded35a0947a47586bdd767129a6d"
+    private val token = "token b9303a8f853aded35a0947a47586bdd767129a6d"
     private var dataUser: MutableLiveData<UsersResponse> = MutableLiveData()
 
     fun setUser() {

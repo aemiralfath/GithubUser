@@ -94,7 +94,8 @@ class MainActivity : AppCompatActivity() {
 
     private val getUser: Observer<UsersResponse> =
         Observer<UsersResponse> {
-            adapter.listUsers = it
+            adapter.listUsers = it ?: UsersResponse()
+            adapter.notifyDataSetChanged()
             showLoading(false)
         }
 

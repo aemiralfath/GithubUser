@@ -7,8 +7,8 @@
     tools:context=".view.activity.SplashScreenActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#FFFFFF"
         android:contentDescription="@string/splashscreen_image"
         app:layout_constraintBottom_toBottomOf="parent"
