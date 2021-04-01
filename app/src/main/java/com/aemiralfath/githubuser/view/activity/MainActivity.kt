@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: UsersItem?) {
                 val intent = Intent(this@MainActivity, DetailUserActivity::class.java)
-                intent.putExtra(DetailUserActivity.EXTRA_USER, data)
+                intent.putExtra(DetailUserActivity.EXTRA_USER, data?.login)
                 startActivity(intent)
             }
         })

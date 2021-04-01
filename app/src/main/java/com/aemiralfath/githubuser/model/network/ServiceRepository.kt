@@ -1,6 +1,7 @@
 package com.aemiralfath.githubuser.model.network
 
 import com.aemiralfath.githubuser.model.entity.DetailUserResponse
+import com.aemiralfath.githubuser.model.entity.FollowResponse
 import com.aemiralfath.githubuser.model.entity.UsersResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -22,4 +23,15 @@ interface ServiceRepository {
         @Header("Authorization") token: String
     ) : Call<DetailUserResponse>
 
+    @GET("/users/{username}/followers")
+    fun getUserFollowerByUsername(
+        @Path("username") username: String,
+        @Header("Authorization") token: String
+    ) : Call<List<FollowResponse>>
+
+    @GET("/users/{username}/following")
+    fun getUserFollowingByUsername(
+        @Path("username") username: String,
+        @Header("Authorization") token: String
+    ) : Call<List<FollowResponse>>
 }

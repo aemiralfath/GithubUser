@@ -23,4 +23,8 @@
     <string name="no_data_available">No Data Available</string>
     <string name="splashscreen_image">Splashscreen Image</string>
     <string name="github_page">Github page</string>
+    <string name="tab_text_1">Follower</string>
+    <string name="tab_text_2">Following</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

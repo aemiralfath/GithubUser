@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -16,9 +17,10 @@ import com.aemiralfath.githubuser.databinding.ActivityDetailUserBinding
 import com.aemiralfath.githubuser.model.db.FavoriteUser
 import com.aemiralfath.githubuser.model.db.database
 import com.aemiralfath.githubuser.model.entity.DetailUserResponse
-import com.aemiralfath.githubuser.model.entity.UsersItem
+import com.aemiralfath.githubuser.view.adapter.SectionPagerAdapter
 import com.aemiralfath.githubuser.viewmodel.DetailUserViewModel
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayoutMediator
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
@@ -29,9 +31,9 @@ class DetailUserActivity : AppCompatActivity() {
 
     private lateinit var username: String
     private lateinit var menuItem: Menu
-    private lateinit var detailUserViewModel: DetailUserViewModel
     private lateinit var binding: ActivityDetailUserBinding
     private lateinit var detailUsersResponse: DetailUserResponse
+    private lateinit var detailUserViewModel: DetailUserViewModel
 
     private var isFavorite: Boolean = false
 
@@ -44,8 +46,8 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userExtra = intent.getParcelableExtra<UsersItem>(EXTRA_USER) as UsersItem
-        username = userExtra.login.toString()
+        val userExtra = intent.getStringExtra(EXTRA_USER)
+        username = userExtra.toString()
 
         supportActionBar?.title = username
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -55,8 +57,14 @@ class DetailUserActivity : AppCompatActivity() {
             ViewModelProvider.NewInstanceFactory()
         ).get(DetailUserViewModel::class.java)
 
-        detailUserViewModel.getDataUser().observe(this, getUser)
         detailUserViewModel.setUser(username)
+        detailUserViewModel.getDataUser().observe(this, getUser)
+
+        val sectionPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
+        sectionPagerAdapter.onDataPass(username)
+        binding.viewPager.adapter = sectionPagerAdapter
+        binding.tabs.setupWithViewPager(binding.viewPager)
+        supportActionBar?.elevation = 0f
 
         showLoading(true)
 
@@ -70,10 +78,12 @@ class DetailUserActivity : AppCompatActivity() {
             binding.tvUserUsername.text = usernameText
             binding.tvUserName.text = if (it.name.isNullOrEmpty()) "Not Set" else it.name
             binding.tvUserCompany.text = if (it.company.isNullOrEmpty()) "Not Set" else it.company
-            binding.tvUserLocation.text = if (it.location.isNullOrEmpty()) "Not Set" else it.location
+            binding.tvUserLocation.text =
+                if (it.location.isNullOrEmpty()) "Not Set" else it.location
             binding.tvUserRepositories.text = it.publicRepos.toString()
             binding.tvUserFollowers.text = it.followers.toString()
             binding.tvUserFollowing.text = it.following.toString()
+
 
             detailUsersResponse = it
             showLoading(false)
