@@ -60,7 +60,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <TextView
@@ -84,7 +83,7 @@
         android:id="@+id/rv_users_about"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_row_user" />
 
