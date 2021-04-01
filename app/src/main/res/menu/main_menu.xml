@@ -6,11 +6,10 @@
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/profile"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_setting_language"
         android:title="@string/setting_language"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
 </menu>

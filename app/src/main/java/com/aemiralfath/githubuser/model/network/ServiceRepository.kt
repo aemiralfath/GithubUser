@@ -15,23 +15,23 @@ interface ServiceRepository {
     fun searchUser(
         @Query("q") username: String,
         @Header("Authorization") token: String
-    ) : Call<UsersResponse>
+    ): Call<UsersResponse>
 
     @GET("/users/{username}")
     fun findUserDetailByUsername(
         @Path("username") username: String,
         @Header("Authorization") token: String
-    ) : Call<DetailUserResponse>
+    ): Call<DetailUserResponse>
 
     @GET("/users/{username}/followers")
     fun getUserFollowerByUsername(
         @Path("username") username: String,
         @Header("Authorization") token: String
-    ) : Call<List<FollowResponse>>
+    ): Call<List<FollowResponse>>
 
     @GET("/users/{username}/following")
     fun getUserFollowingByUsername(
         @Path("username") username: String,
         @Header("Authorization") token: String
-    ) : Call<List<FollowResponse>>
+    ): Call<List<FollowResponse>>
 }

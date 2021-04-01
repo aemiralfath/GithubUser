@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.svUser.setOnCloseListener {
-            onSearch = true
+            onSearch = false
             mainViewModel.setUser(applicationContext)
             true
         }
@@ -97,8 +97,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        showLoading(true)
-
         if (savedInstanceState != null) {
             onSearch = savedInstanceState.getBoolean(STATE_SEARCH)
             if (!onSearch) {
@@ -107,6 +105,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             mainViewModel.setUser(applicationContext)
         }
+
+        showLoading(true)
     }
 
     private val getUser: Observer<UsersResponse> =

@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.aemiralfath.githubuser.BuildConfig
 import com.aemiralfath.githubuser.model.entity.UsersResponse
 import com.aemiralfath.githubuser.model.network.ServiceClient
 import retrofit2.Call
@@ -14,7 +15,7 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
-    private val token = "token b9303a8f853aded35a0947a47586bdd767129a6d"
+    private val token = BuildConfig.API_TOKEN
     private var dataUser: MutableLiveData<UsersResponse> = MutableLiveData()
 
     fun setUser(context: Context) {
@@ -25,12 +26,12 @@ class MainViewModel : ViewModel() {
                     call: Call<UsersResponse>,
                     response: Response<UsersResponse>
                 ) {
-                    Log.d("Search User", response.body().toString())
+                    Log.d("SearchUser", response.body().toString())
                     dataUser.postValue(response.body())
                 }
 
                 override fun onFailure(call: Call<UsersResponse>, t: Throwable) {
-                    Log.d("Search User", "fail")
+                    Log.d("SearchUser", "fail")
                     Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
             })
@@ -45,12 +46,12 @@ class MainViewModel : ViewModel() {
                         call: Call<UsersResponse>,
                         response: Response<UsersResponse>
                     ) {
-                        Log.d("Search User", response.body().toString())
+                        Log.d("SearchUser", response.body().toString())
                         dataUser.postValue(response.body())
                     }
 
                     override fun onFailure(call: Call<UsersResponse>, t: Throwable) {
-                        Log.d("Search User", "fail")
+                        Log.d("SearchUser", "fail")
                         Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                     }
                 })

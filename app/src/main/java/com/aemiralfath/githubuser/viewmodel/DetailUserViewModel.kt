@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.aemiralfath.githubuser.BuildConfig
 import com.aemiralfath.githubuser.model.entity.DetailUserResponse
 import com.aemiralfath.githubuser.model.entity.FollowResponse
 import com.aemiralfath.githubuser.model.network.ServiceClient
@@ -13,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DetailUserViewModel : ViewModel() {
-    private val token = "token b9303a8f853aded35a0947a47586bdd767129a6d"
+    private val token = BuildConfig.API_TOKEN
     private var dataUser: MutableLiveData<DetailUserResponse> = MutableLiveData()
     private var dataUserFollower: MutableLiveData<List<FollowResponse>> = MutableLiveData()
     private var dataUserFollowing: MutableLiveData<List<FollowResponse>> = MutableLiveData()
@@ -40,7 +41,7 @@ class DetailUserViewModel : ViewModel() {
     fun setUserFollowers(context: Context, username: String) {
         ServiceClient().buildServiceClient()
             .getUserFollowerByUsername(username, token)
-            .enqueue(object : Callback<List<FollowResponse>>{
+            .enqueue(object : Callback<List<FollowResponse>> {
                 override fun onResponse(
                     call: Call<List<FollowResponse>>,
                     response: Response<List<FollowResponse>>
@@ -60,7 +61,7 @@ class DetailUserViewModel : ViewModel() {
     fun setUserFollowing(context: Context, username: String) {
         ServiceClient().buildServiceClient()
             .getUserFollowingByUsername(username, token)
-            .enqueue(object : Callback<List<FollowResponse>>{
+            .enqueue(object : Callback<List<FollowResponse>> {
                 override fun onResponse(
                     call: Call<List<FollowResponse>>,
                     response: Response<List<FollowResponse>>

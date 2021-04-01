@@ -65,7 +65,12 @@ class AboutActivity : AppCompatActivity() {
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_profile))
                 intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/aemiralfath/")
-                startActivity(Intent.createChooser(intent, resources.getString(R.string.share_profile)))
+                startActivity(
+                    Intent.createChooser(
+                        intent,
+                        resources.getString(R.string.share_profile)
+                    )
+                )
             }
             android.R.id.home -> {
                 finish()

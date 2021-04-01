@@ -16,11 +16,11 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             app:expandedTitleGravity="bottom|center_horizontal"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleTextAppearance="@android:color/transparent"
-            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,20 +63,20 @@
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-            <TextView
-                android:id="@+id/textView3"
-                style="@style/TextContent.About"
-                android:background="#FFFFFF"
-                android:fontFamily="monospace"
-                android:layout_marginTop="16dp"
-                android:padding="8dp"
-                android:text="@string/favorite_user"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:typeface="monospace"/>
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextContent.About"
+            android:layout_marginTop="16dp"
+            android:background="#FFFFFF"
+            android:fontFamily="monospace"
+            android:padding="8dp"
+            android:text="@string/favorite_user"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -95,6 +95,6 @@
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/no_data_available"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

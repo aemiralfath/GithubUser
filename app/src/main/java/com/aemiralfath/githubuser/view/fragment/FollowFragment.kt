@@ -71,7 +71,7 @@ class FollowFragment : Fragment() {
                 adapter.listUsersFollow = it as ArrayList<FollowResponse>
                 adapter.notifyDataSetChanged()
             })
-        }else{
+        } else {
             username?.let { detailUserViewModel.setUserFollowing(requireContext(), it) }
             detailUserViewModel.getDataUserFollowing().observe(viewLifecycleOwner, {
                 adapter.listUsersFollow = it as ArrayList<FollowResponse>

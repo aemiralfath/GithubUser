@@ -84,7 +84,6 @@ class DetailUserActivity : AppCompatActivity() {
             binding.tvUserFollowers.text = it.followers.toString()
             binding.tvUserFollowing.text = it.following.toString()
 
-
             detailUsersResponse = it
             showLoading(false)
         }
@@ -109,7 +108,12 @@ class DetailUserActivity : AppCompatActivity() {
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_user))
                 intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/${username}")
-                startActivity(Intent.createChooser(intent, resources.getString(R.string.share_user)))
+                startActivity(
+                    Intent.createChooser(
+                        intent,
+                        resources.getString(R.string.share_user)
+                    )
+                )
                 return true
             }
 

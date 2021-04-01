@@ -35,7 +35,3 @@ class SectionPagerAdapter(private val context: Context, fragmentManager: Fragmen
         return FollowFragment.newInstance(username, position)
     }
 }
-
-interface OnDataPass {
-    fun onDataPass(username: String)
-}
