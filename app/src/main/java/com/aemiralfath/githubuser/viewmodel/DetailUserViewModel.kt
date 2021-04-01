@@ -1,6 +1,8 @@
 package com.aemiralfath.githubuser.viewmodel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aemiralfath.githubuser.model.entity.DetailUserResponse
@@ -16,7 +18,7 @@ class DetailUserViewModel : ViewModel() {
     private var dataUserFollower: MutableLiveData<List<FollowResponse>> = MutableLiveData()
     private var dataUserFollowing: MutableLiveData<List<FollowResponse>> = MutableLiveData()
 
-    fun setUser(username: String) {
+    fun setUser(context: Context, username: String) {
         ServiceClient().buildServiceClient()
             .findUserDetailByUsername(username, token)
             .enqueue(object : Callback<DetailUserResponse> {
@@ -30,11 +32,12 @@ class DetailUserViewModel : ViewModel() {
 
                 override fun onFailure(call: Call<DetailUserResponse>, t: Throwable) {
                     Log.d("User", "fail")
+                    Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
             })
     }
 
-    fun setUserFollowers(username: String) {
+    fun setUserFollowers(context: Context, username: String) {
         ServiceClient().buildServiceClient()
             .getUserFollowerByUsername(username, token)
             .enqueue(object : Callback<List<FollowResponse>>{
@@ -48,12 +51,13 @@ class DetailUserViewModel : ViewModel() {
 
                 override fun onFailure(call: Call<List<FollowResponse>>, t: Throwable) {
                     Log.d("UserFollowers", t.toString())
+                    Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
 
             })
     }
 
-    fun setUserFollowing(username: String) {
+    fun setUserFollowing(context: Context, username: String) {
         ServiceClient().buildServiceClient()
             .getUserFollowingByUsername(username, token)
             .enqueue(object : Callback<List<FollowResponse>>{
@@ -67,6 +71,7 @@ class DetailUserViewModel : ViewModel() {
 
                 override fun onFailure(call: Call<List<FollowResponse>>, t: Throwable) {
                     Log.d("UserFollowing", "fail")
+                    Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
 
             })

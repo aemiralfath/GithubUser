@@ -1,6 +1,8 @@
 package com.aemiralfath.githubuser.viewmodel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aemiralfath.githubuser.model.entity.UsersResponse
@@ -15,7 +17,7 @@ class MainViewModel : ViewModel() {
     private val token = "token b9303a8f853aded35a0947a47586bdd767129a6d"
     private var dataUser: MutableLiveData<UsersResponse> = MutableLiveData()
 
-    fun setUser() {
+    fun setUser(context: Context) {
         ServiceClient().buildServiceClient()
             .searchUser("aemir", token)
             .enqueue(object : Callback<UsersResponse> {
@@ -29,11 +31,12 @@ class MainViewModel : ViewModel() {
 
                 override fun onFailure(call: Call<UsersResponse>, t: Throwable) {
                     Log.d("Search User", "fail")
+                    Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                 }
             })
     }
 
-    fun searchUser(query: String?) {
+    fun searchUser(context: Context, query: String?) {
         query?.let {
             ServiceClient().buildServiceClient()
                 .searchUser(it, token)
@@ -48,6 +51,7 @@ class MainViewModel : ViewModel() {
 
                     override fun onFailure(call: Call<UsersResponse>, t: Throwable) {
                         Log.d("Search User", "fail")
+                        Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
                     }
                 })
         }

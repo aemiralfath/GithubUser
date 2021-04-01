@@ -8,11 +8,8 @@
     <string name="company_image">Company Image</string>
     <string name="location_image">Location Image</string>
     <string name="user_location">User Location</string>
-    <string name="_50">50</string>
-    <string name="_100">100</string>
+    <string name="_0">0</string>
     <string name="repositories">Repositories</string>
-    <string name="followers">Followers</string>
-    <string name="following">Following</string>
     <string name="favorite">Favorite</string>
     <string name="share">Share</string>
     <string name="add_to_favorite">Add to Favorite</string>
@@ -25,6 +22,10 @@
     <string name="github_page">Github page</string>
     <string name="tab_text_1">Follower</string>
     <string name="tab_text_2">Following</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="setting_language">Setting Language</string>
+    <string name="search_username">Search Username</string>
+    <string name="about">About</string>
+    <string name="share_profile">Share Profile</string>
+    <string name="not_set">Not Set</string>
+    <string name="share_user">Share User</string>
 </resources>

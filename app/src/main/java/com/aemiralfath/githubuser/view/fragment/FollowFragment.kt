@@ -66,13 +66,13 @@ class FollowFragment : Fragment() {
         ).get(DetailUserViewModel::class.java)
 
         if (section == 0) {
-            username?.let { detailUserViewModel.setUserFollowers(it) }
+            username?.let { detailUserViewModel.setUserFollowers(requireContext(), it) }
             detailUserViewModel.getDataUserFollowers().observe(viewLifecycleOwner, {
                 adapter.listUsersFollow = it as ArrayList<FollowResponse>
                 adapter.notifyDataSetChanged()
             })
         }else{
-            username?.let { detailUserViewModel.setUserFollowing(it) }
+            username?.let { detailUserViewModel.setUserFollowing(requireContext(), it) }
             detailUserViewModel.getDataUserFollowing().observe(viewLifecycleOwner, {
                 adapter.listUsersFollow = it as ArrayList<FollowResponse>
                 adapter.notifyDataSetChanged()

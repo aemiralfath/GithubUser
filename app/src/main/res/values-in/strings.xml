@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pengguna Github</string>
+    <string name="user_name">Nama Pengguna</string>
+    <string name="username">Username</string>
+    <string name="company_name">Nama Perusahaan</string>
+    <string name="image_item">Item Gambar</string>
+    <string name="profile">Profil</string>
+    <string name="company_image">Gambar Perusahaan</string>
+    <string name="location_image">Gambar Lokasi</string>
+    <string name="user_location">Lokasi Pengguna</string>
+    <string name="_0">0</string>
+    <string name="repositories">Repositori</string>
+    <string name="favorite">Favorit</string>
+    <string name="share">Bagikan</string>
+    <string name="add_to_favorite">Ditambahkan ke favorit</string>
+    <string name="remove_from_favorite">Dihapus dari favorit</string>
+    <string name="ahmad_emir_alfatah">Ahmad Emir Alfatah</string>
+    <string name="aemiralfath">\@aemiralfath</string>
+    <string name="favorite_user">Pengguna Favorit</string>
+    <string name="no_data_available">Tidak ada data</string>
+    <string name="splashscreen_image">Gambar Splashscreen</string>
+    <string name="github_page">Halaman Github</string>
+    <string name="tab_text_1">Pengikut</string>
+    <string name="tab_text_2">Diikuti</string>
+    <string name="setting_language">Pengaturan Bahasa</string>
+    <string name="search_username">Cari Username</string>
+    <string name="about">Tentang</string>
+    <string name="share_profile">Bagikan Profil</string>
+    <string name="not_set">Belum dipasang</string>
+    <string name="share_user">Bagikan User</string>
+</resources>

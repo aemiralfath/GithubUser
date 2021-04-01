@@ -31,7 +31,7 @@ class AboutActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "About"
+        supportActionBar?.title = resources.getString(R.string.about)
 
         adapter = UserAdapter()
         showFavorite()
@@ -63,9 +63,9 @@ class AboutActivity : AppCompatActivity() {
             R.id.action_share -> {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "text/plain"
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing Profile")
+                intent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_profile))
                 intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/aemiralfath/")
-                startActivity(Intent.createChooser(intent, "Share Profile"))
+                startActivity(Intent.createChooser(intent, resources.getString(R.string.share_profile)))
             }
             android.R.id.home -> {
                 finish()

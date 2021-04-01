@@ -25,7 +25,7 @@ class SectionPagerAdapter(private val context: Context, fragmentManager: Fragmen
         this.username = username
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return context.resources.getString(TAB_TITLE[position])
     }
 

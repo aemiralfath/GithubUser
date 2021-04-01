@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -20,7 +19,6 @@ import com.aemiralfath.githubuser.model.entity.DetailUserResponse
 import com.aemiralfath.githubuser.view.adapter.SectionPagerAdapter
 import com.aemiralfath.githubuser.viewmodel.DetailUserViewModel
 import com.bumptech.glide.Glide
-import com.google.android.material.tabs.TabLayoutMediator
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
@@ -57,7 +55,7 @@ class DetailUserActivity : AppCompatActivity() {
             ViewModelProvider.NewInstanceFactory()
         ).get(DetailUserViewModel::class.java)
 
-        detailUserViewModel.setUser(username)
+        detailUserViewModel.setUser(this, username)
         detailUserViewModel.getDataUser().observe(this, getUser)
 
         val sectionPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
@@ -76,10 +74,12 @@ class DetailUserActivity : AppCompatActivity() {
 
             Glide.with(this).load(it.avatarUrl).into(binding.imgUserAvatar)
             binding.tvUserUsername.text = usernameText
-            binding.tvUserName.text = if (it.name.isNullOrEmpty()) "Not Set" else it.name
-            binding.tvUserCompany.text = if (it.company.isNullOrEmpty()) "Not Set" else it.company
+            binding.tvUserName.text =
+                if (it.name.isNullOrEmpty()) resources.getString(R.string.not_set) else it.name
+            binding.tvUserCompany.text =
+                if (it.company.isNullOrEmpty()) resources.getString(R.string.not_set) else it.company
             binding.tvUserLocation.text =
-                if (it.location.isNullOrEmpty()) "Not Set" else it.location
+                if (it.location.isNullOrEmpty()) resources.getString(R.string.not_set) else it.location
             binding.tvUserRepositories.text = it.publicRepos.toString()
             binding.tvUserFollowers.text = it.followers.toString()
             binding.tvUserFollowing.text = it.following.toString()
@@ -107,9 +107,9 @@ class DetailUserActivity : AppCompatActivity() {
             R.id.action_share -> {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "text/plain"
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Sharing User")
+                intent.putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.share_user))
                 intent.putExtra(Intent.EXTRA_TEXT, "https://github.com/${username}")
-                startActivity(Intent.createChooser(intent, "Share User"))
+                startActivity(Intent.createChooser(intent, resources.getString(R.string.share_user)))
                 return true
             }
 

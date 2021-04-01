@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,7 +23,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val title = "Github User"
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var adapter: UserAdapter
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.title = title
+        supportActionBar?.title = resources.getString(R.string.app_name)
 
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         binding.svUser.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         binding.svUser.isActivated = true
-        binding.svUser.queryHint = "Search Username"
+        binding.svUser.queryHint = resources.getString(R.string.search_username)
         binding.svUser.onActionViewExpanded()
         binding.svUser.isIconified = false
         binding.svUser.clearFocus()
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 return if (query.isNullOrBlank()) {
                     false
                 } else {
-                    mainViewModel.searchUser(query)
+                    mainViewModel.searchUser(applicationContext, query)
                     true
                 }
             }
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 return if (newText.isNullOrBlank()) {
                     onSearch = false
-                    mainViewModel.setUser()
+                    mainViewModel.setUser(applicationContext)
                     true
                 } else {
                     false
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.svUser.setOnCloseListener {
             onSearch = true
-            mainViewModel.setUser()
+            mainViewModel.setUser(applicationContext)
             true
         }
 
@@ -102,10 +102,10 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             onSearch = savedInstanceState.getBoolean(STATE_SEARCH)
             if (!onSearch) {
-                mainViewModel.setUser()
+                mainViewModel.setUser(applicationContext)
             }
         } else {
-            mainViewModel.setUser()
+            mainViewModel.setUser(applicationContext)
         }
     }
 
@@ -131,6 +131,9 @@ class MainActivity : AppCompatActivity() {
             R.id.action_profile -> {
                 val intent = Intent(this@MainActivity, AboutActivity::class.java)
                 startActivity(intent)
+            }
+            R.id.action_setting_language -> {
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
             }
         }
     }

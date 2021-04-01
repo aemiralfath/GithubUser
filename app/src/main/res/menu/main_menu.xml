@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/profile"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_setting_language"
+        android:title="@string/setting_language"
+        app:showAsAction="never"
+        />
 </menu>

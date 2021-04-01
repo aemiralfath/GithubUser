@@ -9,7 +9,6 @@ import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ItemRowUserBinding
 import com.aemiralfath.githubuser.model.entity.FollowResponse
 import com.bumptech.glide.Glide
-import kotlin.math.log
 
 class UserFollowAdapter : RecyclerView.Adapter<UserFollowAdapter.UserViewHolder>() {
 
