@@ -65,17 +65,20 @@ class FollowFragment : Fragment() {
             ViewModelProvider.NewInstanceFactory()
         ).get(DetailUserViewModel::class.java)
 
+        showLoading(true)
         if (section == 0) {
             username?.let { detailUserViewModel.setUserFollowers(requireContext(), it) }
             detailUserViewModel.getDataUserFollowers().observe(viewLifecycleOwner, {
                 adapter.listUsersFollow = it as ArrayList<FollowResponse>
                 adapter.notifyDataSetChanged()
+                showLoading(false)
             })
         } else {
             username?.let { detailUserViewModel.setUserFollowing(requireContext(), it) }
             detailUserViewModel.getDataUserFollowing().observe(viewLifecycleOwner, {
                 adapter.listUsersFollow = it as ArrayList<FollowResponse>
                 adapter.notifyDataSetChanged()
+                showLoading(false)
             })
         }
 
@@ -86,6 +89,14 @@ class FollowFragment : Fragment() {
                 startActivity(intent)
             }
         })
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
 
