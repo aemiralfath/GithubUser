@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 return if (query.isNullOrBlank()) {
                     false
                 } else {
+                    showLoading(true)
                     mainViewModel.searchUser(applicationContext, query)
                     mainViewModel.getDataUser().observe(this@MainActivity, getUser)
                     true
@@ -76,18 +77,19 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 return if (newText.isNullOrBlank()) {
                     onSearch = false
+                    showLoading(true)
                     mainViewModel.setUser(applicationContext)
                     mainViewModel.getDataUser().observe(this@MainActivity, getUser)
                     true
                 } else {
-                    showLoading(true)
-                    true
+                    false
                 }
             }
         })
 
         binding.svUser.setOnCloseListener {
             onSearch = false
+            showLoading(true)
             mainViewModel.setUser(applicationContext)
             mainViewModel.getDataUser().observe(this@MainActivity, getUser)
             true
