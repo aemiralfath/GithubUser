@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                     false
                 } else {
                     mainViewModel.searchUser(applicationContext, query)
+                    mainViewModel.getDataUser().observe(this@MainActivity, getUser)
                     true
                 }
             }
@@ -76,9 +77,11 @@ class MainActivity : AppCompatActivity() {
                 return if (newText.isNullOrBlank()) {
                     onSearch = false
                     mainViewModel.setUser(applicationContext)
+                    mainViewModel.getDataUser().observe(this@MainActivity, getUser)
                     true
                 } else {
-                    false
+                    showLoading(true)
+                    true
                 }
             }
         })
@@ -86,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         binding.svUser.setOnCloseListener {
             onSearch = false
             mainViewModel.setUser(applicationContext)
+            mainViewModel.getDataUser().observe(this@MainActivity, getUser)
             true
         }
 
@@ -140,8 +144,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLoading(state: Boolean) {
         if (state) {
+            binding.rvUser.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
         } else {
+            binding.rvUser.visibility = View.VISIBLE
             binding.progressBar.visibility = View.GONE
         }
     }
