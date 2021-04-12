@@ -1,5 +1,6 @@
 package com.aemiralfath.githubuser.model.db
 
+import android.database.Cursor
 import androidx.room.*
 import com.aemiralfath.githubuser.model.entity.FavoriteUser
 import kotlinx.coroutines.flow.Flow
@@ -20,4 +21,7 @@ interface FavoriteUserDao {
 
     @Query("DELETE FROM favorite_user")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM favorite_user")
+    fun getAllFavorite(): Cursor
 }

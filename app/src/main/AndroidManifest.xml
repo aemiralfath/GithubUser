@@ -5,6 +5,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <permission
+        android:name="com.aemiralfath.githubuser.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.aemiralfath.githubuser.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
     <application
         android:name=".model.db.FavoriteUserApplication"
         android:allowBackup="true"
@@ -14,10 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser"
         tools:ignore="AllowBackup">
+        <provider
+            android:name=".model.provider.FavoriteUserProvider"
+            android:authorities="com.aemiralfath.githubuser"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.aemiralfath.githubuser.READ_DATABASE"
+            android:writePermission="com.aemiralfath.githubuser.WRITE_DATABASE"/>
+
         <receiver
             android:name=".service.ReminderReceiver"
-            android:enabled="true"
-            android:exported="true"></receiver>
+            android:enabled="true"/>
 
         <activity
             android:name=".view.activity.SettingsActivity"

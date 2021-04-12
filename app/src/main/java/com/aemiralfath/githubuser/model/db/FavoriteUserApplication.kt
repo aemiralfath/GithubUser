@@ -5,7 +5,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
 class FavoriteUserApplication : Application() {
-    private val applicationScope = CoroutineScope(SupervisorJob())
-    private val database by lazy { UserDatabase.getDatabase(this, applicationScope) }
+    private val database by lazy { UserDatabase.getDatabase(this) }
     val repository by lazy { FavoriteUserRepository(database.favoriteUserDao()) }
 }
