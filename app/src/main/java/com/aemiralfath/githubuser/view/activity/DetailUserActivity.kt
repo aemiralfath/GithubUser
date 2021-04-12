@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -14,15 +15,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityDetailUserBinding
 import com.aemiralfath.githubuser.model.db.FavoriteUser
-import com.aemiralfath.githubuser.model.db.database
+import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
 import com.aemiralfath.githubuser.model.entity.DetailUserResponse
 import com.aemiralfath.githubuser.view.adapter.SectionPagerAdapter
 import com.aemiralfath.githubuser.viewmodel.DetailUserViewModel
+import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModel
+import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModelFactory
 import com.bumptech.glide.Glide
-import org.jetbrains.anko.db.classParser
-import org.jetbrains.anko.db.delete
-import org.jetbrains.anko.db.insert
-import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
 
 class DetailUserActivity : AppCompatActivity() {
@@ -32,6 +31,10 @@ class DetailUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUserBinding
     private lateinit var detailUsersResponse: DetailUserResponse
     private lateinit var detailUserViewModel: DetailUserViewModel
+
+    private val favoriteUserViewModel: FavoriteUserViewModel by viewModels {
+        FavoriteUserViewModelFactory((application as FavoriteUserApplication).repository)
+    }
 
     private var isFavorite: Boolean = false
 
@@ -85,8 +88,18 @@ class DetailUserActivity : AppCompatActivity() {
             binding.tvUserFollowing.text = it.following.toString()
 
             detailUsersResponse = it
+
+            favoriteUserViewModel.setUserByUsername(username)
+            favoriteState()
             showLoading(false)
         }
+
+    private fun favoriteState() {
+        favoriteUserViewModel.getDataUser().observe(this, {
+            isFavorite = it != null
+            setFavorite()
+        })
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_user_menu, menu)
@@ -125,21 +138,9 @@ class DetailUserActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun favoriteState() {
-        database.use {
-            val result = select(FavoriteUser.TABLE_FAVORITE)
-                .whereArgs(
-                    "(USERNAME = {username})",
-                    "username" to username
-                )
-            val favorite = result.parseList(classParser<FavoriteUser>())
-            Log.d("Favorite", favorite.toString())
-            isFavorite = favorite.isNotEmpty()
-        }
-    }
+
 
     private fun setFavorite() {
-        favoriteState()
         if (isFavorite) {
             menuItem.getItem(0)?.icon =
                 ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_24)
@@ -151,14 +152,15 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun addToFavorite() {
         try {
-            database.use {
-                insert(
-                    FavoriteUser.TABLE_FAVORITE,
-                    FavoriteUser.USERNAME to detailUsersResponse.login,
-                    FavoriteUser.USER_LINK to detailUsersResponse.htmlUrl,
-                    FavoriteUser.USER_AVATAR to detailUsersResponse.avatarUrl
+            favoriteUserViewModel.addToFavoriteUser(
+                FavoriteUser(
+                    username = detailUsersResponse.login.toString(),
+                    link = detailUsersResponse.htmlUrl,
+                    avatar = detailUsersResponse.avatarUrl
                 )
-            }
+            )
+            isFavorite = true
+            setFavorite()
             binding.root.snackbar(getString(R.string.add_to_favorite))
         } catch (e: SQLiteConstraintException) {
             binding.root.snackbar(e.localizedMessage!!).show()
@@ -167,13 +169,16 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun removeFromFavorite() {
         try {
-            database.use {
-                delete(
-                    FavoriteUser.TABLE_FAVORITE,
-                    "(USERNAME = {username})",
-                    "username" to username
+
+            favoriteUserViewModel.removeFromFavoriteUser(
+                FavoriteUser(
+                    username = detailUsersResponse.login.toString(),
+                    link = detailUsersResponse.htmlUrl,
+                    avatar = detailUsersResponse.avatarUrl
                 )
-            }
+            )
+            isFavorite = false
+            setFavorite()
             binding.root.snackbar(getString(R.string.remove_from_favorite))
         } catch (e: SQLiteConstraintException) {
             binding.root.snackbar(e.localizedMessage!!)

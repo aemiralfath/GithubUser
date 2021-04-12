@@ -3,27 +3,32 @@ package com.aemiralfath.githubuser.view.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityAboutBinding
 import com.aemiralfath.githubuser.model.db.FavoriteUser
-import com.aemiralfath.githubuser.model.db.database
+import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
 import com.aemiralfath.githubuser.model.entity.UsersItem
 import com.aemiralfath.githubuser.model.entity.UsersResponse
 import com.aemiralfath.githubuser.view.adapter.UserAdapter
-import org.jetbrains.anko.db.classParser
-import org.jetbrains.anko.db.select
+import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModel
+import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModelFactory
 
 class AboutActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAboutBinding
     private lateinit var adapter: UserAdapter
 
-    private var favoriteUser: MutableList<FavoriteUser> = mutableListOf()
+    private val favoriteUserViewModel: FavoriteUserViewModel by viewModels {
+        FavoriteUserViewModelFactory((application as FavoriteUserApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +39,9 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar?.title = resources.getString(R.string.about)
 
         adapter = UserAdapter()
-        showFavorite()
+
+        favoriteUserViewModel.setUser()
+        favoriteUserViewModel.getDataUsers().observe(this, getUser)
 
         binding.circleImageView.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
@@ -43,9 +50,16 @@ class AboutActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        showFavorite()
+    private val getUser: Observer<List<FavoriteUser>> = Observer {
+        Log.d("ListUser", it.size.toString())
+        if (it.isEmpty()) {
+            binding.rvUsersAbout.visibility = View.GONE
+            binding.emptyView.visibility = View.VISIBLE
+        } else {
+            binding.rvUsersAbout.visibility = View.VISIBLE
+            binding.emptyView.visibility = View.GONE
+            showRecyclerList(it)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,26 +94,7 @@ class AboutActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showFavorite() {
-        favoriteUser.clear()
-
-        this.database.use {
-            val resultUser = select(FavoriteUser.TABLE_FAVORITE)
-            val favUser = resultUser.parseList(classParser<FavoriteUser>())
-            favoriteUser.addAll(favUser)
-        }
-
-        if (favoriteUser.isEmpty()) {
-            binding.rvUsersAbout.visibility = View.GONE
-            binding.emptyView.visibility = View.VISIBLE
-        } else {
-            binding.rvUsersAbout.visibility = View.VISIBLE
-            binding.emptyView.visibility = View.GONE
-            showRecyclerList()
-        }
-    }
-
-    private fun showRecyclerList() {
+    private fun showRecyclerList(favoriteUser: List<FavoriteUser>) {
         val listData: ArrayList<UsersItem> = arrayListOf()
         favoriteUser.forEach {
             listData.add(

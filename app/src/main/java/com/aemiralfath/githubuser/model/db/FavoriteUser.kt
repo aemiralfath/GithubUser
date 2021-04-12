@@ -1,14 +1,12 @@
 package com.aemiralfath.githubuser.model.db
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "favorite_user")
 data class FavoriteUser(
-    val username: String?,
-    val link: String?,
-    val avatar: String?,
-) {
-    companion object {
-        const val TABLE_FAVORITE: String = "FAVORITE_USER"
-        const val USERNAME: String = "USERNAME"
-        const val USER_LINK: String = "USER_LINK"
-        const val USER_AVATAR: String = "USER_AVATAR"
-    }
-}
+    @PrimaryKey val username: String,
+    @ColumnInfo(name = "link") val link: String?,
+    @ColumnInfo(name = "avatar") val avatar: String?,
+)
