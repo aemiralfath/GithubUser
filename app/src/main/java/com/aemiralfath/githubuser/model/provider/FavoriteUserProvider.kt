@@ -15,15 +15,9 @@ class FavoriteUserProvider : ContentProvider() {
     companion object {
         private const val AUTHORITY = "com.aemiralfath.githubuser"
         private const val TABLE_NAME = "favorite_user"
-        private const val SCHEME = "content"
         private const val USER = 1
 
         private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
-
-        val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
-            .authority(AUTHORITY)
-            .appendPath(TABLE_NAME)
-            .build()
 
         init {
             uriMatcher.addURI(AUTHORITY, TABLE_NAME, USER)
