@@ -8,6 +8,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.aemiralfath.githubuser.R
+import com.aemiralfath.githubuser.service.ReminderReceiver
 
 class SettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -18,6 +19,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
     }
 
     private lateinit var changeLanguage: Preference
+    private lateinit var reminderReceiver: ReminderReceiver
     private lateinit var isReminderPreference: SwitchPreferenceCompat
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -29,6 +31,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
     private fun init() {
         REMINDER = resources.getString(R.string.switch_reminder)
         LANGUAGE = resources.getString(R.string.list_language)
+        reminderReceiver = ReminderReceiver()
         changeLanguage = findPreference<Preference>(LANGUAGE) as Preference
         isReminderPreference =
             findPreference<SwitchPreferenceCompat>(REMINDER) as SwitchPreferenceCompat
@@ -36,7 +39,22 @@ class SettingsFragment : PreferenceFragmentCompat(),
 
     private fun setSummaries() {
         val sh = preferenceManager.sharedPreferences
-        isReminderPreference.isChecked = sh.getBoolean(REMINDER, false)
+        isReminderPreference.isChecked =
+            sh.getBoolean(REMINDER, false) && reminderReceiver.isReminderSet(requireContext())
+
+        isReminderPreference.onPreferenceClickListener= Preference.OnPreferenceClickListener {
+            if (isReminderPreference.isChecked) {
+                reminderReceiver.setDailyReminder(
+                    requireContext(),
+                    ReminderReceiver.TYPE_DAILY,
+                    "17:52",
+                    "Let's find popular user on Github"
+                )
+            } else {
+                reminderReceiver.cancelAlarm(requireContext())
+            }
+            true
+        }
 
         changeLanguage.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))

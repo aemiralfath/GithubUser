@@ -14,9 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser"
         tools:ignore="AllowBackup">
+        <receiver
+            android:name=".service.ReminderReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
         <activity
             android:name=".view.activity.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".view.activity.SplashScreenActivity"
             android:theme="@style/SplashScreen">
