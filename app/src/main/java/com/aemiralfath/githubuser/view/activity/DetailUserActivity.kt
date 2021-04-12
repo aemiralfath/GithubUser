@@ -3,7 +3,6 @@ package com.aemiralfath.githubuser.view.activity
 import android.content.Intent
 import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,9 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityDetailUserBinding
-import com.aemiralfath.githubuser.model.db.FavoriteUser
 import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
 import com.aemiralfath.githubuser.model.entity.DetailUserResponse
+import com.aemiralfath.githubuser.model.entity.FavoriteUser
 import com.aemiralfath.githubuser.view.adapter.SectionPagerAdapter
 import com.aemiralfath.githubuser.viewmodel.DetailUserViewModel
 import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModel
@@ -31,6 +30,8 @@ class DetailUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUserBinding
     private lateinit var detailUsersResponse: DetailUserResponse
     private lateinit var detailUserViewModel: DetailUserViewModel
+
+    private lateinit var sectionPagerAdapter: SectionPagerAdapter
 
     private val favoriteUserViewModel: FavoriteUserViewModel by viewModels {
         FavoriteUserViewModelFactory((application as FavoriteUserApplication).repository)
@@ -61,9 +62,8 @@ class DetailUserActivity : AppCompatActivity() {
         detailUserViewModel.setUser(this, username)
         detailUserViewModel.getDataUser().observe(this, getUser)
 
-        val sectionPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
+        sectionPagerAdapter = SectionPagerAdapter(this, supportFragmentManager)
         sectionPagerAdapter.onDataPass(username)
-        binding.viewPager.adapter = sectionPagerAdapter
         binding.tabs.setupWithViewPager(binding.viewPager)
         supportActionBar?.elevation = 0f
 
@@ -86,6 +86,8 @@ class DetailUserActivity : AppCompatActivity() {
             binding.tvUserRepositories.text = it.publicRepos.toString()
             binding.tvUserFollowers.text = it.followers.toString()
             binding.tvUserFollowing.text = it.following.toString()
+
+            binding.viewPager.adapter = sectionPagerAdapter
 
             detailUsersResponse = it
 
@@ -137,7 +139,6 @@ class DetailUserActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
 
     private fun setFavorite() {

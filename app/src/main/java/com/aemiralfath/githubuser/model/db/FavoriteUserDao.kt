@@ -1,6 +1,7 @@
 package com.aemiralfath.githubuser.model.db
 
 import androidx.room.*
+import com.aemiralfath.githubuser.model.entity.FavoriteUser
 import kotlinx.coroutines.flow.Flow
 
 @Dao

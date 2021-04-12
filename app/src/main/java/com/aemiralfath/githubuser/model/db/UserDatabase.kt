@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.aemiralfath.githubuser.model.entity.FavoriteUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(entities = [FavoriteUser::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+abstract class UserDatabase : RoomDatabase() {
     abstract fun favoriteUserDao(): FavoriteUserDao
 
     private class AppDatabaseCallback(
@@ -35,13 +36,13 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE: UserDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): AppDatabase {
+        fun getDatabase(context: Context, scope: CoroutineScope): UserDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
+                    UserDatabase::class.java,
                     "FavoriteUser"
                 ).addCallback(AppDatabaseCallback(scope)).build()
 

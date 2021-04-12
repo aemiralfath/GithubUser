@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityAboutBinding
-import com.aemiralfath.githubuser.model.db.FavoriteUser
+import com.aemiralfath.githubuser.model.entity.FavoriteUser
 import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
 import com.aemiralfath.githubuser.model.entity.UsersItem
 import com.aemiralfath.githubuser.model.entity.UsersResponse

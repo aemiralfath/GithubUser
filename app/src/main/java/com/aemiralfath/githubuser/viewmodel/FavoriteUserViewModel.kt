@@ -1,9 +1,8 @@
 package com.aemiralfath.githubuser.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
-import com.aemiralfath.githubuser.model.db.FavoriteUser
 import com.aemiralfath.githubuser.model.db.FavoriteUserRepository
+import com.aemiralfath.githubuser.model.entity.FavoriteUser
 import kotlinx.coroutines.launch
 
 class FavoriteUserViewModel(private val repository: FavoriteUserRepository) : ViewModel() {
@@ -38,9 +37,10 @@ class FavoriteUserViewModel(private val repository: FavoriteUserRepository) : Vi
     fun getDataUsers() = dataUsers
 }
 
-class FavoriteUserViewModelFactory(private val repository: FavoriteUserRepository): ViewModelProvider.Factory {
+class FavoriteUserViewModelFactory(private val repository: FavoriteUserRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(FavoriteUserViewModel::class.java)){
+        if (modelClass.isAssignableFrom(FavoriteUserViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return FavoriteUserViewModel(repository) as T
         }
