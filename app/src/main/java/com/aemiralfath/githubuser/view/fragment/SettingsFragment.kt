@@ -42,7 +42,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
         isReminderPreference.isChecked =
             sh.getBoolean(REMINDER, false) && reminderReceiver.isReminderSet(requireContext())
 
-        isReminderPreference.onPreferenceClickListener= Preference.OnPreferenceClickListener {
+        isReminderPreference.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             if (isReminderPreference.isChecked) {
                 reminderReceiver.setDailyReminder(
                     requireContext(),
