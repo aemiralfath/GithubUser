@@ -15,6 +15,9 @@
         android:theme="@style/Theme.GithubUser"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".view.activity.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity
             android:name=".view.activity.SplashScreenActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>

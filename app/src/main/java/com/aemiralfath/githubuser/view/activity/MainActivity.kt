@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -139,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             R.id.action_setting_language -> {
-                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
             }
         }
     }

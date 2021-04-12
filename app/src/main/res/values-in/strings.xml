@@ -29,4 +29,15 @@
     <string name="share_profile">Bagikan Profil</string>
     <string name="not_set">Belum dipasang</string>
     <string name="share_user">Bagikan User</string>
+    <string name="title_activity_settings">Aktifitas Pengaturan</string>
+
+    <!-- Preference Titles -->
+    <string name="language_header">Bahasa</string>
+    <string name="reminder_header">Pengingat</string>
+
+    <!-- Messages Preferences -->
+    <string name="change_language">Ganti Bahasa</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="english">Bahasa Inggris</string>
+    <string name="indonesian">Bahasa Indonesia</string>
 </resources>

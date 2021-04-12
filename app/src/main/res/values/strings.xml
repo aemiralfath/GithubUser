@@ -28,4 +28,19 @@
     <string name="share_profile">Share Profile</string>
     <string name="not_set">Not Set</string>
     <string name="share_user">Share User</string>
+
+    <string name="switch_reminder" translatable="false">switch_reminder</string>
+    <string name="list_language" translatable="false">list_language</string>
+
+    <string name="title_activity_settings">SettingsActivity</string>
+    <!-- Preference Titles -->
+    <string name="language_header">Language</string>
+    <string name="reminder_header">Reminder</string>
+
+    <!-- Messages Preferences -->
+    <string name="change_language">Change Language</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="english">English</string>
+    <string name="indonesian">Indonesian</string>
+
 </resources>
