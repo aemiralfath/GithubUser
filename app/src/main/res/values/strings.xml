@@ -46,4 +46,8 @@
     <string name="empty_text">No Data</string>
     <string name="widget_image">Widget Image</string>
 
+    <string name="set_reminder">Daily reminder set up</string>
+    <string name="cancel_reminder">Daily reminder cancel</string>
+    <string name="reminder_msg">Let\'s find popular user on Github</string>
+
 </resources>

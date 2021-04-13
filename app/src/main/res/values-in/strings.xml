@@ -44,4 +44,8 @@
     <string name="add_widget">Tambahkan Widget</string>
     <string name="empty_text">Tidak ada data</string>
     <string name="widget_image">Gambar Widget</string>
+
+    <string name="set_reminder">Pengingat harian dipasang</string>
+    <string name="cancel_reminder">Pengingat harian dicopot</string>
+    <string name="reminder_msg">Mari temukan pengguna terkenal di Github</string>
 </resources>

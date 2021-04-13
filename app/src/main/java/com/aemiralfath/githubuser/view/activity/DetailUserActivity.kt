@@ -3,7 +3,6 @@ package com.aemiralfath.githubuser.view.activity
 import android.content.Intent
 import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -193,7 +192,6 @@ class DetailUserActivity : AppCompatActivity() {
     }
 
     private fun sendUpdate() {
-        Log.d("SENDUPDATE", "update widget")
         val intent = Intent(this, FavoriteUserWidget::class.java)
         intent.action = UPDATE_WIDGET_FAVORITE
         sendBroadcast(intent)

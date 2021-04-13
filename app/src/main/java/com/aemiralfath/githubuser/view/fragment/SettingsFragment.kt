@@ -48,7 +48,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
                     requireContext(),
                     ReminderReceiver.TYPE_DAILY,
                     "09:00",
-                    "Let's find popular user on Github"
+                    resources.getString(R.string.reminder_msg)
                 )
             } else {
                 reminderReceiver.cancelAlarm(requireContext())

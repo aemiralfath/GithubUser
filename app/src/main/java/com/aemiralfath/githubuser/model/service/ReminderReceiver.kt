@@ -68,7 +68,7 @@ class ReminderReceiver : BroadcastReceiver() {
             pendingIntent
         )
 
-        Toast.makeText(context, "Daily reminder set up", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.set_reminder, Toast.LENGTH_SHORT).show()
     }
 
     fun cancelAlarm(context: Context) {
@@ -80,7 +80,7 @@ class ReminderReceiver : BroadcastReceiver() {
         pendingIntent.cancel()
         alarmManager.cancel(pendingIntent)
 
-        Toast.makeText(context, "Daily reminder cancel", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.cancel_reminder, Toast.LENGTH_SHORT).show()
     }
 
     fun isReminderSet(context: Context): Boolean {

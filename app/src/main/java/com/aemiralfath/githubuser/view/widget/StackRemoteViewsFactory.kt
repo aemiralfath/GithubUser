@@ -3,7 +3,6 @@ package com.aemiralfath.githubuser.view.widget
 import android.content.Context
 import android.content.Intent
 import android.os.Binder
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
@@ -28,7 +27,6 @@ class StackRemoteViewsFactory(
         widgetItem.clear()
         favoriteUserApplication.repository.setListFavoriteUser()
         widgetItem = favoriteUserApplication.repository.favoriteUserList as ArrayList<FavoriteUser>
-        Log.d("WIDGETITEM", widgetItem.size.toString())
     }
 
     override fun onDestroy() {
@@ -39,7 +37,6 @@ class StackRemoteViewsFactory(
 
     override fun getViewAt(position: Int): RemoteViews {
         val rv = RemoteViews(context.packageName, R.layout.widget_item)
-        Log.d("WIDGET", widgetItem[position].avatar.toString())
 
         try {
             rv.setImageViewBitmap(

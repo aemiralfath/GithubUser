@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
@@ -57,9 +56,8 @@ class FavoriteUserWidget : AppWidgetProvider() {
         if (intent.action != null) {
             if (intent.action == TOAST_ACTION) {
                 val viewIndex = intent.getIntExtra(EXTRA_ITEM, 0)
-                Toast.makeText(context, "Favorite user $viewIndex", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, viewIndex, Toast.LENGTH_SHORT).show()
             } else if (intent.action == UPDATE_WIDGET_FAVORITE) {
-                Log.d("SENDUPDATE", "receive widget")
                 val appWidgetManager = AppWidgetManager.getInstance(context)
                 val ids = appWidgetManager.getAppWidgetIds(
                     ComponentName(
@@ -79,7 +77,6 @@ class FavoriteUserWidget : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         // There may be multiple widgets active, so update all of them
-        Log.d("UPDATEWIDGET", "onUpdate")
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
