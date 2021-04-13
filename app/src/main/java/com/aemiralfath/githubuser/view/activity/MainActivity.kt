@@ -41,16 +41,37 @@ class MainActivity : AppCompatActivity() {
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
 
-        binding.rvUser.setHasFixedSize(true)
-        binding.rvUser.layoutManager = LinearLayoutManager(this)
-        binding.rvUser.adapter = adapter
-
         mainViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
         ).get(MainViewModel::class.java)
 
         mainViewModel.getDataUser().observe(this, getUser)
+
+        if (savedInstanceState != null) {
+            onSearch = savedInstanceState.getBoolean(STATE_SEARCH)
+            if (!onSearch) {
+                mainViewModel.setUser(applicationContext)
+            }
+        } else {
+            mainViewModel.setUser(applicationContext)
+        }
+
+        initView()
+        showLoading(true)
+    }
+
+    private val getUser: Observer<UsersResponse> =
+        Observer<UsersResponse> {
+            adapter.listUsers = it ?: UsersResponse()
+            adapter.notifyDataSetChanged()
+            showLoading(false)
+        }
+
+    private fun initView() {
+        binding.rvUser.setHasFixedSize(true)
+        binding.rvUser.layoutManager = LinearLayoutManager(this)
+        binding.rvUser.adapter = adapter
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         binding.svUser.setSearchableInfo(searchManager.getSearchableInfo(componentName))
@@ -101,25 +122,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
-
-        if (savedInstanceState != null) {
-            onSearch = savedInstanceState.getBoolean(STATE_SEARCH)
-            if (!onSearch) {
-                mainViewModel.setUser(applicationContext)
-            }
-        } else {
-            mainViewModel.setUser(applicationContext)
-        }
-
-        showLoading(true)
     }
-
-    private val getUser: Observer<UsersResponse> =
-        Observer<UsersResponse> {
-            adapter.listUsers = it ?: UsersResponse()
-            adapter.notifyDataSetChanged()
-            showLoading(false)
-        }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)

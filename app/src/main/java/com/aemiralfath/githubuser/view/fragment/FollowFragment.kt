@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.databinding.FragmentFollowBinding
@@ -68,18 +69,10 @@ class FollowFragment : Fragment() {
         showLoading(true)
         if (section == 0) {
             username?.let { detailUserViewModel.setUserFollowers(requireContext(), it) }
-            detailUserViewModel.getDataUserFollowers().observe(viewLifecycleOwner, {
-                adapter.listUsersFollow = it as ArrayList<FollowResponse>
-                adapter.notifyDataSetChanged()
-                showLoading(false)
-            })
+            detailUserViewModel.getDataUserFollowers().observe(viewLifecycleOwner, getFollow)
         } else {
             username?.let { detailUserViewModel.setUserFollowing(requireContext(), it) }
-            detailUserViewModel.getDataUserFollowing().observe(viewLifecycleOwner, {
-                adapter.listUsersFollow = it as ArrayList<FollowResponse>
-                adapter.notifyDataSetChanged()
-                showLoading(false)
-            })
+            detailUserViewModel.getDataUserFollowing().observe(viewLifecycleOwner, getFollow)
         }
 
         adapter.setOnItemClickCallback(object : UserFollowAdapter.OnItemClickCallback {
@@ -91,12 +84,15 @@ class FollowFragment : Fragment() {
         })
     }
 
-    private fun showLoading(state: Boolean) {
-        if (state) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
+    private val getFollow: Observer<List<FollowResponse>> =
+        Observer<List<FollowResponse>> {
+            adapter.listUsersFollow = it as ArrayList<FollowResponse>
+            adapter.notifyDataSetChanged()
+            showLoading(false)
         }
+
+    private fun showLoading(state: Boolean) {
+        binding.progressBar.visibility = if (state) View.VISIBLE else View.GONE
     }
 
 
