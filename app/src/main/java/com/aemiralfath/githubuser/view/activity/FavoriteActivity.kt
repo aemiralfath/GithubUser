@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.R
-import com.aemiralfath.githubuser.databinding.ActivityAboutBinding
+import com.aemiralfath.githubuser.databinding.ActivityFavoriteBinding
 import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
 import com.aemiralfath.githubuser.model.db.entity.FavoriteUser
 import com.aemiralfath.githubuser.model.network.response.UsersItemResponse
@@ -23,7 +23,7 @@ import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModelFactory
 
 class FavoriteActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAboutBinding
+    private lateinit var binding: ActivityFavoriteBinding
     private lateinit var adapter: UserAdapter
 
     private val favoriteUserViewModel: FavoriteUserViewModel by viewModels {
@@ -32,7 +32,7 @@ class FavoriteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAboutBinding.inflate(layoutInflater)
+        binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

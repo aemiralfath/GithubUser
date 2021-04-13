@@ -37,11 +37,8 @@
     <!-- Messages Preferences -->
     <string name="change_language">Ganti Bahasa</string>
     <string name="daily_reminder">Pengingat Harian</string>
-    <string name="english">Bahasa Inggris</string>
-    <string name="indonesian">Bahasa Indonesia</string>
 
     <string name="appwidget_text">Pengguna Favorit</string>
-    <string name="add_widget">Tambahkan Widget</string>
     <string name="empty_text">Tidak ada data</string>
     <string name="widget_image">Gambar Widget</string>
 

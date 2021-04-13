@@ -7,7 +7,6 @@
     tools:context=".view.activity.FavoriteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -49,7 +48,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
                 <TextView
-                    android:id="@+id/textView2"
                     style="@style/TextContent"
                     android:layout_marginTop="4dp"
                     android:text="@string/aemiralfath"
@@ -63,7 +61,6 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <TextView
-            android:id="@+id/textView3"
             style="@style/TextContent.About"
             android:layout_marginTop="16dp"
             android:background="#FFFFFF"

@@ -1,45 +1,6 @@
 <resources>
     <string name="app_name">ConsumerApp</string>
     <string name="user_name">User Name</string>
-    <string name="username">Username</string>
-    <string name="company_name">Company Name</string>
     <string name="image_item">Image Item</string>
-    <string name="profile">Profile</string>
-    <string name="company_image">Company Image</string>
-    <string name="location_image">Location Image</string>
-    <string name="user_location">User Location</string>
-    <string name="_0">0</string>
-    <string name="repositories">Repositories</string>
-    <string name="favorite">Favorite</string>
-    <string name="share">Share</string>
-    <string name="add_to_favorite">Add to Favorite</string>
-    <string name="remove_from_favorite">Remove from Favorite</string>
-    <string name="ahmad_emir_alfatah">Ahmad Emir Alfatah</string>
-    <string name="aemiralfath">\@aemiralfath</string>
-    <string name="favorite_user">Favorite User</string>
-    <string name="no_data_available">No Data Available</string>
-    <string name="splashscreen_image">Splashscreen Image</string>
     <string name="github_page">Github page</string>
-    <string name="tab_text_1">Follower</string>
-    <string name="tab_text_2">Following</string>
-    <string name="setting_language">Setting Language</string>
-    <string name="search_username">Search Username</string>
-    <string name="about">About</string>
-    <string name="share_profile">Share Profile</string>
-    <string name="not_set">Not Set</string>
-    <string name="share_user">Share User</string>
-
-    <string name="switch_reminder" translatable="false">switch_reminder</string>
-    <string name="list_language" translatable="false">list_language</string>
-
-    <string name="title_activity_settings">SettingsActivity</string>
-    <!-- Preference Titles -->
-    <string name="language_header">Language</string>
-    <string name="reminder_header">Reminder</string>
-
-    <!-- Messages Preferences -->
-    <string name="change_language">Change Language</string>
-    <string name="daily_reminder">Daily Reminder</string>
-    <string name="english">English</string>
-    <string name="indonesian">Indonesian</string>
 </resources>
