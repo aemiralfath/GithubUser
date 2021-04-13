@@ -22,9 +22,8 @@
     <string name="github_page">Github page</string>
     <string name="tab_text_1">Follower</string>
     <string name="tab_text_2">Following</string>
-    <string name="setting_language">Setting Language</string>
+    <string name="setting">Setting</string>
     <string name="search_username">Search Username</string>
-    <string name="about">About</string>
     <string name="share_profile">Share Profile</string>
     <string name="not_set">Not Set</string>
     <string name="share_user">Share User</string>
@@ -42,5 +41,9 @@
     <string name="daily_reminder">Daily Reminder</string>
     <string name="english">English</string>
     <string name="indonesian">Indonesian</string>
+    <string name="appwidget_text">Favorite User</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">No Data</string>
+    <string name="widget_image">Widget Image</string>
 
 </resources>

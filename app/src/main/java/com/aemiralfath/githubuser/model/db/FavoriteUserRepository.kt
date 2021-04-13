@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 class FavoriteUserRepository(private val favoriteUserDao: FavoriteUserDao) {
 
+    lateinit var favoriteUserList: List<FavoriteUser>
+
     lateinit var favoriteUser: Flow<List<FavoriteUser>>
 
     lateinit var favoriteUserByUsername: Flow<FavoriteUser>
@@ -13,6 +15,11 @@ class FavoriteUserRepository(private val favoriteUserDao: FavoriteUserDao) {
     @WorkerThread
     fun setFavoriteUser() {
         favoriteUser = favoriteUserDao.getAll()
+    }
+
+    @WorkerThread
+    fun setListFavoriteUser() {
+        favoriteUserList = favoriteUserDao.getAllList()
     }
 
     @WorkerThread

@@ -10,6 +10,9 @@ interface FavoriteUserDao {
     @Query("SELECT * FROM favorite_user")
     fun getAll(): Flow<List<FavoriteUser>>
 
+    @Query("SELECT * FROM favorite_user")
+    fun getAllList(): List<FavoriteUser>
+
     @Query("SELECT * FROM favorite_user WHERE username LIKE :username LIMIT 1")
     fun findByUsername(username: String): Flow<FavoriteUser>
 

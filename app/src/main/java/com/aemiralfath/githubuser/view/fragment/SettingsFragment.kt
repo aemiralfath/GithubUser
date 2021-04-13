@@ -8,7 +8,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.aemiralfath.githubuser.R
-import com.aemiralfath.githubuser.service.ReminderReceiver
+import com.aemiralfath.githubuser.model.service.ReminderReceiver
 
 class SettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -47,7 +47,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
                 reminderReceiver.setDailyReminder(
                     requireContext(),
                     ReminderReceiver.TYPE_DAILY,
-                    "17:52",
+                    "09:00",
                     "Let's find popular user on Github"
                 )
             } else {

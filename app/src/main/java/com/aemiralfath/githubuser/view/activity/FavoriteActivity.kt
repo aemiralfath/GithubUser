@@ -21,7 +21,7 @@ import com.aemiralfath.githubuser.view.adapter.UserAdapter
 import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModel
 import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModelFactory
 
-class AboutActivity : AppCompatActivity() {
+class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAboutBinding
     private lateinit var adapter: UserAdapter
@@ -36,7 +36,7 @@ class AboutActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = resources.getString(R.string.about)
+        supportActionBar?.title = resources.getString(R.string.favorite)
 
         adapter = UserAdapter()
 
@@ -114,7 +114,7 @@ class AboutActivity : AppCompatActivity() {
 
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: UsersItem?) {
-                val intent = Intent(this@AboutActivity, DetailUserActivity::class.java)
+                val intent = Intent(this@FavoriteActivity, DetailUserActivity::class.java)
                 intent.putExtra(DetailUserActivity.EXTRA_USER, data?.login)
                 startActivity(intent)
             }

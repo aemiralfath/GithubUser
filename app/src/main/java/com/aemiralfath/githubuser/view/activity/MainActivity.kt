@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
     private fun setMode(selectedMode: Int) {
         when (selectedMode) {
             R.id.action_profile -> {
-                val intent = Intent(this@MainActivity, AboutActivity::class.java)
+                val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
                 startActivity(intent)
             }
             R.id.action_setting_language -> {

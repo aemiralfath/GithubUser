@@ -3,6 +3,7 @@ package com.aemiralfath.githubuser.view.activity
 import android.content.Intent
 import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +18,7 @@ import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
 import com.aemiralfath.githubuser.model.entity.DetailUserResponse
 import com.aemiralfath.githubuser.model.entity.FavoriteUser
 import com.aemiralfath.githubuser.view.adapter.SectionPagerAdapter
+import com.aemiralfath.githubuser.view.widget.FavoriteUserWidget
 import com.aemiralfath.githubuser.viewmodel.DetailUserViewModel
 import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModel
 import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModelFactory
@@ -41,6 +43,7 @@ class DetailUserActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_USER = "extra_user"
+        const val UPDATE_WIDGET_FAVORITE = "com.aemiralfath.githubuser.view.activity.UPDATE_FAVORITE"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -162,6 +165,7 @@ class DetailUserActivity : AppCompatActivity() {
             )
             isFavorite = true
             setFavorite()
+            sendUpdate()
             binding.root.snackbar(getString(R.string.add_to_favorite))
         } catch (e: SQLiteConstraintException) {
             binding.root.snackbar(e.localizedMessage!!).show()
@@ -180,10 +184,18 @@ class DetailUserActivity : AppCompatActivity() {
             )
             isFavorite = false
             setFavorite()
+            sendUpdate()
             binding.root.snackbar(getString(R.string.remove_from_favorite))
         } catch (e: SQLiteConstraintException) {
             binding.root.snackbar(e.localizedMessage!!)
         }
+    }
+
+    private fun sendUpdate() {
+        Log.d("SENDUPDATE", "update widget")
+        val intent = Intent(this, FavoriteUserWidget::class.java)
+        intent.action = UPDATE_WIDGET_FAVORITE
+        sendBroadcast(intent)
     }
 
     private fun showLoading(state: Boolean) {

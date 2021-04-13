@@ -23,9 +23,8 @@
     <string name="github_page">Halaman Github</string>
     <string name="tab_text_1">Pengikut</string>
     <string name="tab_text_2">Diikuti</string>
-    <string name="setting_language">Pengaturan Bahasa</string>
+    <string name="setting">Pengaturan</string>
     <string name="search_username">Cari Username</string>
-    <string name="about">Tentang</string>
     <string name="share_profile">Bagikan Profil</string>
     <string name="not_set">Belum dipasang</string>
     <string name="share_user">Bagikan User</string>
@@ -40,4 +39,8 @@
     <string name="daily_reminder">Pengingat Harian</string>
     <string name="english">Bahasa Inggris</string>
     <string name="indonesian">Bahasa Indonesia</string>
+
+    <string name="appwidget_text">Pengguna Favorit</string>
+    <string name="add_widget">Tambahkan Widget</string>
+    <string name="empty_text">Tidak ada data</string>
 </resources>

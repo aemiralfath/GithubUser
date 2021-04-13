@@ -1,4 +1,4 @@
-package com.aemiralfath.githubuser.service
+package com.aemiralfath.githubuser.model.service
 
 import android.app.*
 import android.content.BroadcastReceiver
