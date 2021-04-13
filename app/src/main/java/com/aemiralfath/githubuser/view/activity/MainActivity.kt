@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityMainBinding
-import com.aemiralfath.githubuser.model.entity.UsersItem
-import com.aemiralfath.githubuser.model.entity.UsersResponse
+import com.aemiralfath.githubuser.model.network.response.UsersItemResponse
+import com.aemiralfath.githubuser.model.network.response.UsersResponse
 import com.aemiralfath.githubuser.view.adapter.UserAdapter
 import com.aemiralfath.githubuser.viewmodel.MainViewModel
 import java.util.*
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: UsersItem?) {
+            override fun onItemClicked(data: UsersItemResponse?) {
                 val intent = Intent(this@MainActivity, DetailUserActivity::class.java)
                 intent.putExtra(DetailUserActivity.EXTRA_USER, data?.login)
                 startActivity(intent)

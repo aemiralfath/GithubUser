@@ -6,9 +6,9 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aemiralfath.githubuser.BuildConfig
-import com.aemiralfath.githubuser.model.entity.DetailUserResponse
-import com.aemiralfath.githubuser.model.entity.FollowResponse
 import com.aemiralfath.githubuser.model.network.ServiceClient
+import com.aemiralfath.githubuser.model.network.response.DetailUserResponse
+import com.aemiralfath.githubuser.model.network.response.FollowResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

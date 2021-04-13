@@ -45,7 +45,7 @@ class FavoriteUserProvider : ContentProvider() {
         uri: Uri, projection: Array<String>?, selection: String?,
         selectionArgs: Array<String>?, sortOrder: String?
     ): Cursor? {
-        return when(uriMatcher.match(uri)){
+        return when (uriMatcher.match(uri)) {
             USER -> favoriteUserDao.getAllFavorite()
             else -> null
         }

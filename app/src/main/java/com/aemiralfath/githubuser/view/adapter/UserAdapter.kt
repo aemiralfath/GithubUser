@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ItemRowUserBinding
-import com.aemiralfath.githubuser.model.entity.UsersItem
-import com.aemiralfath.githubuser.model.entity.UsersResponse
+import com.aemiralfath.githubuser.model.network.response.UsersItemResponse
+import com.aemiralfath.githubuser.model.network.response.UsersResponse
 import com.bumptech.glide.Glide
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
@@ -31,15 +31,15 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.bind(listUsers.items?.get(position) ?: UsersItem())
+        holder.bind(listUsers.itemResponses?.get(position) ?: UsersItemResponse())
     }
 
-    override fun getItemCount(): Int = listUsers.items?.size ?: 0
+    override fun getItemCount(): Int = listUsers.itemResponses?.size ?: 0
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemRowUserBinding.bind(itemView)
 
-        fun bind(user: UsersItem?) {
+        fun bind(user: UsersItemResponse?) {
             val username = "@${user?.login}"
 
             Glide.with(itemView.context).load(user?.avatarUrl).into(binding.imgItemAvatar)
@@ -53,7 +53,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: UsersItem?)
+        fun onItemClicked(data: UsersItemResponse?)
     }
 
 }

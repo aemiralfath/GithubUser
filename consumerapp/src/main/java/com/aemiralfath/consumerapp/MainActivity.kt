@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             if (users.size > 0) {
                 adapter.listUsers = users
             } else {
-                adapter.listUsers = ArrayList<FavoriteUser>()
+                adapter.listUsers = ArrayList()
             }
         }
     }

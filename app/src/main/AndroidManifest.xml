@@ -24,7 +24,7 @@
 
         <service
             android:name="com.aemiralfath.githubuser.model.service.StackWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name=".view.widget.FavoriteUserWidget">
             <intent-filter>

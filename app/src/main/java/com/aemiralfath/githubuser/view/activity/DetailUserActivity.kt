@@ -15,8 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityDetailUserBinding
 import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
-import com.aemiralfath.githubuser.model.entity.DetailUserResponse
-import com.aemiralfath.githubuser.model.entity.FavoriteUser
+import com.aemiralfath.githubuser.model.db.entity.FavoriteUser
+import com.aemiralfath.githubuser.model.network.response.DetailUserResponse
 import com.aemiralfath.githubuser.view.adapter.SectionPagerAdapter
 import com.aemiralfath.githubuser.view.widget.FavoriteUserWidget
 import com.aemiralfath.githubuser.viewmodel.DetailUserViewModel
@@ -43,7 +43,8 @@ class DetailUserActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_USER = "extra_user"
-        const val UPDATE_WIDGET_FAVORITE = "com.aemiralfath.githubuser.view.activity.UPDATE_FAVORITE"
+        const val UPDATE_WIDGET_FAVORITE =
+            "com.aemiralfath.githubuser.view.activity.UPDATE_FAVORITE"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

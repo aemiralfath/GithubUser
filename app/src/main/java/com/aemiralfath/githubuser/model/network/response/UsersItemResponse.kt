@@ -1,11 +1,11 @@
-package com.aemiralfath.githubuser.model.entity
+package com.aemiralfath.githubuser.model.network.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class UsersItem(
+data class UsersItemResponse(
 
     @field:SerializedName("gists_url")
     val gistsUrl: String? = null,

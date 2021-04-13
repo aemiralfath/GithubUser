@@ -13,10 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ActivityAboutBinding
-import com.aemiralfath.githubuser.model.entity.FavoriteUser
 import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
-import com.aemiralfath.githubuser.model.entity.UsersItem
-import com.aemiralfath.githubuser.model.entity.UsersResponse
+import com.aemiralfath.githubuser.model.db.entity.FavoriteUser
+import com.aemiralfath.githubuser.model.network.response.UsersItemResponse
+import com.aemiralfath.githubuser.model.network.response.UsersResponse
 import com.aemiralfath.githubuser.view.adapter.UserAdapter
 import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModel
 import com.aemiralfath.githubuser.viewmodel.FavoriteUserViewModelFactory
@@ -95,10 +95,10 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerList(favoriteUser: List<FavoriteUser>) {
-        val listData: ArrayList<UsersItem> = arrayListOf()
+        val listData: ArrayList<UsersItemResponse> = arrayListOf()
         favoriteUser.forEach {
             listData.add(
-                UsersItem(
+                UsersItemResponse(
                     login = it.username,
                     htmlUrl = it.link,
                     avatarUrl = it.avatar
@@ -113,7 +113,7 @@ class FavoriteActivity : AppCompatActivity() {
         binding.rvUsersAbout.adapter = adapter
 
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: UsersItem?) {
+            override fun onItemClicked(data: UsersItemResponse?) {
                 val intent = Intent(this@FavoriteActivity, DetailUserActivity::class.java)
                 intent.putExtra(DetailUserActivity.EXTRA_USER, data?.login)
                 startActivity(intent)

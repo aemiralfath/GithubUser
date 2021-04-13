@@ -1,8 +1,8 @@
 package com.aemiralfath.githubuser.model.network
 
-import com.aemiralfath.githubuser.model.entity.DetailUserResponse
-import com.aemiralfath.githubuser.model.entity.FollowResponse
-import com.aemiralfath.githubuser.model.entity.UsersResponse
+import com.aemiralfath.githubuser.model.network.response.DetailUserResponse
+import com.aemiralfath.githubuser.model.network.response.FollowResponse
+import com.aemiralfath.githubuser.model.network.response.UsersResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

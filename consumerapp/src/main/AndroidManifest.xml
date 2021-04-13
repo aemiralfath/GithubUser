@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aemiralfath.consumerapp" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.aemiralfath.consumerapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.aemiralfath.githubuser.READ_DATABASE" />
@@ -12,8 +13,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GithubUser" >
-        <activity android:name=".MainActivity" >
+        android:theme="@style/Theme.GithubUser"
+        tools:ignore="AllowBackup">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

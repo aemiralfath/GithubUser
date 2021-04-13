@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.aemiralfath.githubuser.model.entity.FavoriteUser
+import com.aemiralfath.githubuser.model.db.entity.FavoriteUser
 
 @Database(entities = [FavoriteUser::class], version = 1)
 abstract class UserDatabase : RoomDatabase() {

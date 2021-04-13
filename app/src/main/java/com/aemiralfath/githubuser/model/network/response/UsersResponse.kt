@@ -1,4 +1,4 @@
-package com.aemiralfath.githubuser.model.entity
+package com.aemiralfath.githubuser.model.network.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -14,5 +14,5 @@ data class UsersResponse(
 	val incompleteResults: Boolean? = null,
 
 	@field:SerializedName("items")
-	val items: List<UsersItem?>? = null
+	val itemResponses: List<UsersItemResponse?>? = null
 ) : Parcelable

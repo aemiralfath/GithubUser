@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aemiralfath.githubuser.databinding.FragmentFollowBinding
-import com.aemiralfath.githubuser.model.entity.FollowResponse
+import com.aemiralfath.githubuser.model.network.response.FollowResponse
 import com.aemiralfath.githubuser.view.activity.DetailUserActivity
 import com.aemiralfath.githubuser.view.adapter.UserFollowAdapter
 import com.aemiralfath.githubuser.viewmodel.DetailUserViewModel

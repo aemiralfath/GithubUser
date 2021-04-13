@@ -6,11 +6,10 @@ import android.os.Binder
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.model.db.FavoriteUserApplication
-import com.aemiralfath.githubuser.model.entity.FavoriteUser
+import com.aemiralfath.githubuser.model.db.entity.FavoriteUser
 import com.bumptech.glide.Glide
 
 class StackRemoteViewsFactory(
@@ -49,7 +48,7 @@ class StackRemoteViewsFactory(
                     .load(widgetItem[position].avatar).submit()
                     .get()
             )
-        } catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 

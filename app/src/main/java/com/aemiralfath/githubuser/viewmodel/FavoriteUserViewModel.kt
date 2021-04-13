@@ -1,8 +1,11 @@
 package com.aemiralfath.githubuser.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.aemiralfath.githubuser.model.db.FavoriteUserRepository
-import com.aemiralfath.githubuser.model.entity.FavoriteUser
+import com.aemiralfath.githubuser.model.db.entity.FavoriteUser
 import kotlinx.coroutines.launch
 
 class FavoriteUserViewModel(private val repository: FavoriteUserRepository) : ViewModel() {
@@ -35,16 +38,4 @@ class FavoriteUserViewModel(private val repository: FavoriteUserRepository) : Vi
     fun getDataUser() = dataUser
 
     fun getDataUsers() = dataUsers
-}
-
-class FavoriteUserViewModelFactory(private val repository: FavoriteUserRepository) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(FavoriteUserViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return FavoriteUserViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-
 }

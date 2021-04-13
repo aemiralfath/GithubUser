@@ -1,7 +1,7 @@
 package com.aemiralfath.githubuser.model.db
 
 import androidx.annotation.WorkerThread
-import com.aemiralfath.githubuser.model.entity.FavoriteUser
+import com.aemiralfath.githubuser.model.db.entity.FavoriteUser
 import kotlinx.coroutines.flow.Flow
 
 class FavoriteUserRepository(private val favoriteUserDao: FavoriteUserDao) {

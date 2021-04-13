@@ -2,7 +2,7 @@ package com.aemiralfath.githubuser.model.db
 
 import android.database.Cursor
 import androidx.room.*
-import com.aemiralfath.githubuser.model.entity.FavoriteUser
+import com.aemiralfath.githubuser.model.db.entity.FavoriteUser
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -12,6 +12,9 @@ interface FavoriteUserDao {
 
     @Query("SELECT * FROM favorite_user")
     fun getAllList(): List<FavoriteUser>
+
+    @Query("SELECT * FROM favorite_user")
+    fun getAllFavorite(): Cursor
 
     @Query("SELECT * FROM favorite_user WHERE username LIKE :username LIMIT 1")
     fun findByUsername(username: String): Flow<FavoriteUser>
@@ -24,7 +27,4 @@ interface FavoriteUserDao {
 
     @Query("DELETE FROM favorite_user")
     suspend fun deleteAll()
-
-    @Query("SELECT * FROM favorite_user")
-    fun getAllFavorite(): Cursor
 }

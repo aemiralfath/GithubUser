@@ -1,4 +1,4 @@
-package com.aemiralfath.githubuser.model.entity
+package com.aemiralfath.githubuser.model.network.response
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

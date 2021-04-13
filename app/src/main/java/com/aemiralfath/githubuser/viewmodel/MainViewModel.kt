@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aemiralfath.githubuser.BuildConfig
-import com.aemiralfath.githubuser.model.entity.UsersResponse
 import com.aemiralfath.githubuser.model.network.ServiceClient
+import com.aemiralfath.githubuser.model.network.response.UsersResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

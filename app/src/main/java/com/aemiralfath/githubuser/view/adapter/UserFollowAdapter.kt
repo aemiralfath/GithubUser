@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aemiralfath.githubuser.R
 import com.aemiralfath.githubuser.databinding.ItemRowUserBinding
-import com.aemiralfath.githubuser.model.entity.FollowResponse
+import com.aemiralfath.githubuser.model.network.response.FollowResponse
 import com.bumptech.glide.Glide
 
 class UserFollowAdapter : RecyclerView.Adapter<UserFollowAdapter.UserViewHolder>() {
