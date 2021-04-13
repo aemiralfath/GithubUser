@@ -41,6 +41,7 @@
         app:srcCompat="@drawable/ic_baseline_business_24" />
 
     <TextView
+        android:id="@+id/tv_item_page"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
