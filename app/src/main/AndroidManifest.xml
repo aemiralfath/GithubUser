@@ -27,11 +27,11 @@
             android:enabled="true"
             android:exported="true"
             android:readPermission="com.aemiralfath.githubuser.READ_DATABASE"
-            android:writePermission="com.aemiralfath.githubuser.WRITE_DATABASE"/>
+            android:writePermission="com.aemiralfath.githubuser.WRITE_DATABASE" />
 
         <receiver
             android:name=".service.ReminderReceiver"
-            android:enabled="true"/>
+            android:enabled="true" />
 
         <activity
             android:name=".view.activity.SettingsActivity"
